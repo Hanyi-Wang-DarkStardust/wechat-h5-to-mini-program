@@ -28,6 +28,12 @@ module.exports = {
       jsx: true
     },
   },
+  globals: {
+    React: true,
+    shallow: true,
+    JSX: true,
+    expect: true
+  },
   rules: {
     curly: ['error', 'multi-line'],
     'guard-for-in': 'error',
@@ -144,5 +150,5 @@ module.exports = {
         ignoreMemberSort: false,
       },
     ],
-  },
+  }
 };
