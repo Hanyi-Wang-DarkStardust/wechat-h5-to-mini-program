@@ -30,3 +30,8 @@ export const DEFAULT_HEIGHT = '100%';
  * 微信开放标签默认样式宽度
  */
 export const DEFAULT_WIDTH = '100%';
+
+/**
+ * wx jssdk 加载重试次数
+ */
+export const WX_SDK_LOAD_RETRY_TIMES = 2;

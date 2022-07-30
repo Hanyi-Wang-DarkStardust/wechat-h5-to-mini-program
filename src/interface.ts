@@ -55,12 +55,6 @@ interface IWeAppTagCore<T> {
   miniProgramAppId: string;
 
   /**
-   * 跳转时的 H5 url
-   * @description 默认选择 location.href
-   */
-  originUrl?: string;
-
-  /**
    * 是否开启调试模式
    */
   debugMode?: boolean;
@@ -69,7 +63,12 @@ interface IWeAppTagCore<T> {
    * 外部传入的微信签名
    * @description 如果传入外部微信签名，则会直接使用该配置进行 wx.config 操作
    */
-  wxSignature: T;
+  wxSignature?: T;
+
+  /**
+   * wx jssdk 实例，如果不传入将从 window.wx 中获取，若都没有则将启动内部初始化流程
+   */
+  wxInstance?: any;
 
   /**
    * 用于获取微信签名的函数，随后会利用返回值进行 wx.config 操作
