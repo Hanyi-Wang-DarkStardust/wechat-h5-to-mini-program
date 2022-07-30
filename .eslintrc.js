@@ -5,6 +5,7 @@ module.exports = {
     'plugin:compat/recommended',
     'plugin:jest/recommended',
     'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
     'plugin:import/typescript',
     'plugin:markdown/recommended',
   ],
@@ -27,6 +28,9 @@ module.exports = {
   overrides: [
     {
       files: ['*.ts', '*.tsx'],
+      extends: ["plugin:react-hooks/recommended"],
+      plugins: ["@typescript-eslint/eslint-plugin", "react-hooks"],
+      parser: "@typescript-eslint/parser",
       rules: {
         '@typescript-eslint/no-unused-vars': [2, { args: 'none' }],
         'no-unused-expressions': 'off',
