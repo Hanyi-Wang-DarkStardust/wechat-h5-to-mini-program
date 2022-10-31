@@ -1,6 +1,6 @@
 import { DEFAULT_HEIGHT, DEFAULT_WIDTH } from '../constants';
 
-export function getWxTagStyle(isDebugMode: boolean) {
+export function getWxTagStyle(isDebugMode: boolean): React.CSSProperties {
   return {
     background: isDebugMode ? 'red' : 'transparent',
     position: 'absolute',
