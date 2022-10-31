@@ -39,6 +39,7 @@ export interface IWxSignature {
   jsApiList?: Array<string>;
 }
 
+type IWeAppTagLogger = Pick<Console, 'debug' | 'info' | 'log' | 'error'>;
 
 /**
  * 微信开放标签封装组件核心 props
@@ -53,6 +54,11 @@ interface IWeAppTagCore<T> {
    * 小程序 APPID
    */
   miniProgramAppId: string;
+
+  /**
+   * 上报日志工具
+   */
+  logger?: IWeAppTagLogger | Console;
 
   /**
    * 是否开启调试模式
