@@ -1,5 +1,5 @@
 {
-  "name": "wechat-h5-to-mini-program",
+  "name": "wechat-h5-to-mini-program-hoc",
   "version": "0.0.1",
   "description": "A common solution for navigating to mini-program from wechat h5 environment.",
   "main": "dist/index.js",
@@ -88,8 +88,8 @@
     "typescript": "^4.5.4"
   },
   "peerDependencies": {
-    "react": "^16.8.0 || 17.x",
-    "react-dom": "^16.8.0 || 17.x"
+    "react": "^16.8.0 || 17.x || 18.x",
+    "react-dom": "^16.8.0 || 17.x || 18.x"
   },
   "bugs": {
     "url": "https://github.com/Hanyi-Wang-DarkStardust/wechat-h5-to-mini-program/issues"

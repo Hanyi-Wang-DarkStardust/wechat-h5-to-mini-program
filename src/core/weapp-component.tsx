@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useRef } from 'react';
-import { JSAPI_INVOKE_MINI_PROGRAM, WEAPP_OPEN_TAG } from './constants';
-import { getRandomKey } from './core/utils';
-import { loadSdkScriptExecutor, ixWxSdkInitialized } from './core/sdk-loader';
-import type { IWeAppTag, IWxSignature } from './interface';
-import { getNaviBtnStyle, getWxTagStyle } from './core/styles';
+import { JSAPI_INVOKE_MINI_PROGRAM, WEAPP_OPEN_TAG } from '../constants';
+import { getRandomKey } from './utils';
+import { loadSdkScriptExecutor, ixWxSdkInitialized } from './sdk-loader';
+import type { IWeAppTag, IWxSignature } from '../interface';
+import { getNaviBtnStyle, getWxTagStyle } from './styles';
 
 const WeappTag: React.FC<IWeAppTag> = (props: IWeAppTag) => {
   const {
@@ -23,10 +23,10 @@ const WeappTag: React.FC<IWeAppTag> = (props: IWeAppTag) => {
     if (ixWxSdkInitialized(wxInstance)) {
       return true;
     }
-    
+
     return new Promise((resolve) => {
       loadSdkScriptExecutor(resolve, 0);
-    })
+    });
   }, [wxInstance]);
 
   const handleWxConfigReady = useCallback(() => {
@@ -47,8 +47,7 @@ const WeappTag: React.FC<IWeAppTag> = (props: IWeAppTag) => {
         ? signature.jsApiList
         : (signature.jsApiList || []).concat([JSAPI_INVOKE_MINI_PROGRAM]),
       openTagList: [WEAPP_OPEN_TAG],
-    }
-
+    };
     wxInstance.config(signatureConf);
     wxInstance.ready(() => {
       handleWxConfigReady();
@@ -70,7 +69,7 @@ const WeappTag: React.FC<IWeAppTag> = (props: IWeAppTag) => {
 
       // 2. 处理 wx.config 场景
       if (wxSignature) {
-        await executeWxConfig(wxSignature);
+        executeWxConfig(wxSignature);
         return;
       }
 
@@ -79,7 +78,7 @@ const WeappTag: React.FC<IWeAppTag> = (props: IWeAppTag) => {
         logger.error('微信 SDK 认证失败');
         return;
       }
-      await executeWxConfig(signature);
+      executeWxConfig(signature);
     }
 
     componentDidMount();

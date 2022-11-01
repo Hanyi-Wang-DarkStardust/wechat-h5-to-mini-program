@@ -2,22 +2,12 @@ import type React from 'react';
 
 export interface ICoreConfig {
   /**
-   * 公众号 Appid，用于 wx.config 认证使用
-   */
-  officialAccountappId: string;
-
-  /**
    * 需要跳转的小程序 Appid
    */
   miniProgramAppId: string;
 }
 
 export interface IWxSignature {
-  /**
-   * 微信认证专用：公众号 Appid
-   */
-   officialAccountappId: ICoreConfig['officialAccountappId'];
-
   /**
    * 微信认证专用：时间戳
    */

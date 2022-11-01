@@ -1,8 +1,8 @@
 import React, { useRef } from 'react';
-import WeappTag from './weapp-tag';
+import WeappComponent from './core/weapp-component';
 import type { IWechatH5ToMiniProgram } from './interface';
 
-const WechatH5ToMiniProgram: React.FC<IWechatH5ToMiniProgram> = (props: IWechatH5ToMiniProgram) => {
+const WechatH5ToMiniProgramHOC: React.FC<IWechatH5ToMiniProgram> = (props: IWechatH5ToMiniProgram) => {
   const {
     children,
     className = '',
@@ -18,7 +18,7 @@ const WechatH5ToMiniProgram: React.FC<IWechatH5ToMiniProgram> = (props: IWechatH
   return (
     <div className={className} style={{ ...style, position: 'relative' }}>
       <div ref={childrenRef}>{children}</div>
-      <WeappTag
+      <WeappComponent
         {...WeappTagProps}
         childrenRef={childrenRef}
       />
@@ -26,4 +26,4 @@ const WechatH5ToMiniProgram: React.FC<IWechatH5ToMiniProgram> = (props: IWechatH
   );
 };
 
-export default WechatH5ToMiniProgram;
+export default WechatH5ToMiniProgramHOC;
