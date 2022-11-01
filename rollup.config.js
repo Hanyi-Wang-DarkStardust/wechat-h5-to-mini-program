@@ -17,38 +17,6 @@ const { name } = pkg;
 const inputDir = 'src/index.tsx';
 
 export default defineConfig([
-  // ESM Development
-  {
-    input: inputDir,
-    output: {
-      file: 'lib/index.js',
-      format: 'esm',
-      indent: false,
-      name,
-    },
-    external,
-    plugins: [
-      nodeResolve({
-        extensions,
-        browser: true,
-        preferBuiltins: true,
-      }),
-      commonjs({}),
-      typescript(),
-      babel({
-        extensions,
-        exclude: 'node_modules/**',
-        babelHelpers: 'bundled',
-        configFile: path.resolve(__dirname, 'babel.config.js'),
-      }),
-      replace({
-        preventAssignment: true,
-        'process.env.NODE_ENV': JSON.stringify('development'),
-      }),
-    ],
-  },
-
-  
   // UMD Development
   {
     input: inputDir,

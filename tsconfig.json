@@ -10,7 +10,7 @@
     "jsx": "react",
     "declaration": true,
     "inlineSources": false,
-    "outDir": "./es",
+    "outDir": "./lib",
     "importHelpers": true,
     "sourceMap": false,
     "removeComments": false,

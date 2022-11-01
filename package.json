@@ -27,8 +27,7 @@
   },
   "files": [
     "dist/",
-    "lib/",
-    "es/"
+    "lib/"
   ],
   "keywords": [
     "React",

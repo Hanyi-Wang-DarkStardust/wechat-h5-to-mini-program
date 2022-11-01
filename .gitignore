@@ -4,7 +4,6 @@ coverage
 
 dist
 lib
-es
 types
 
 package-lock.json
