@@ -27,3 +27,4 @@ const WechatH5ToMiniProgramHOC: React.FC<IWechatH5ToMiniProgram> = (props: IWech
 };
 
 export default WechatH5ToMiniProgramHOC;
+export * from './interface';
