@@ -1,6 +1,6 @@
 {
   "name": "wechat-h5-to-mini-program-hoc",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A common solution for navigating to mini-program from wechat h5 environment.",
   "main": "dist/index.js",
   "module": "lib/index.js",

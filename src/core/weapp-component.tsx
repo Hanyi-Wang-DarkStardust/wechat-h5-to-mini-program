@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useRef } from 'react';
+import type { IWxInstance } from 'global';
 import { JSAPI_INVOKE_MINI_PROGRAM, WEAPP_OPEN_TAG } from '../constants';
 import { getRandomKey } from './utils';
-import { loadSdkScriptExecutor, ixWxSdkInitialized } from './sdk-loader';
+import { loadSdkScriptExecutor, isWxSdkInitialized } from './sdk-loader';
 import type { IWeAppTag, IWxSignature } from '../interface';
 import { getNaviBtnStyle, getWxTagStyle } from './styles';
 
@@ -11,7 +12,7 @@ const WeappTag: React.FC<IWeAppTag> = (props: IWeAppTag) => {
     miniProgramAppId,
     logger = window?.console,
     debugMode = false,
-    wxInstance = window?.wx,
+    wxInstance,
     wxSignature,
     wxSignatureFetcher,
     childrenRef,
@@ -20,8 +21,8 @@ const WeappTag: React.FC<IWeAppTag> = (props: IWeAppTag) => {
   const wxTagIdRef = useRef<string>(`wx-mini-program-launch-btn_${getRandomKey()}`);
 
   const loadWxSdkIfNeeded = useCallback(async () => {
-    if (ixWxSdkInitialized(wxInstance)) {
-      return true;
+    if (isWxSdkInitialized(wxInstance)) {
+      return wxInstance || window?.wx;
     }
 
     return new Promise((resolve) => {
@@ -39,7 +40,7 @@ const WeappTag: React.FC<IWeAppTag> = (props: IWeAppTag) => {
     });
   }, [logger]);
 
-  const executeWxConfig = useCallback((signature: IWxSignature) => {
+  const executeWxConfig = useCallback((signature: IWxSignature, instance: IWxInstance = wxInstance) => {
     const signatureConf = {
       ...signature,
       debug: !!debugMode,
@@ -48,11 +49,11 @@ const WeappTag: React.FC<IWeAppTag> = (props: IWeAppTag) => {
         : (signature.jsApiList || []).concat([JSAPI_INVOKE_MINI_PROGRAM]),
       openTagList: [WEAPP_OPEN_TAG],
     };
-    wxInstance.config(signatureConf);
-    wxInstance.ready(() => {
+    instance?.config(signatureConf);
+    instance?.ready(() => {
       handleWxConfigReady();
     });
-    wxInstance.error((e: unknown) => {
+    instance?.error((e: unknown) => {
       logger.error('微信 SDK 认证失败, 详情:', e);
     });
   }, [debugMode, handleWxConfigReady, logger, wxInstance]);
@@ -60,16 +61,15 @@ const WeappTag: React.FC<IWeAppTag> = (props: IWeAppTag) => {
   useEffect(() => {
     async function componentDidMount() {
       // 1. 检查 wx jssdk 是否加载
-      const isSdkReady = await loadWxSdkIfNeeded();
-
-      if (!isSdkReady) {
+      const safeWxInstance = await loadWxSdkIfNeeded();
+      if (!safeWxInstance) {
         logger.error('微信 SDK 加载失败');
         return;
       }
 
       // 2. 处理 wx.config 场景
       if (wxSignature) {
-        executeWxConfig(wxSignature);
+        executeWxConfig(wxSignature, safeWxInstance);
         return;
       }
 
@@ -78,7 +78,7 @@ const WeappTag: React.FC<IWeAppTag> = (props: IWeAppTag) => {
         logger.error('微信 SDK 认证失败');
         return;
       }
-      executeWxConfig(signature);
+      executeWxConfig(signature, safeWxInstance);
     }
 
     componentDidMount();
