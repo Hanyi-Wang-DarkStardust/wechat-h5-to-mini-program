@@ -4,7 +4,7 @@ import { JSAPI_INVOKE_MINI_PROGRAM, WEAPP_OPEN_TAG } from '../constants';
 import { getRandomKey } from './utils';
 import { loadSdkScriptExecutor, isWxSdkInitialized } from './sdk-loader';
 import type { IWeAppTag, IWxSignature } from '../interface';
-import { getNaviBtnStyle, getWxTagStyle } from './styles';
+import { getWxTagStyle, useNaviBtnStyle } from './styles';
 
 const WeappTag: React.FC<IWeAppTag> = (props: IWeAppTag) => {
   const {
@@ -85,6 +85,8 @@ const WeappTag: React.FC<IWeAppTag> = (props: IWeAppTag) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const btnStyle = useNaviBtnStyle(childrenRef, debugMode);
+
   return (
     <wx-open-launch-weapp
       id={wxTagIdRef.current}
@@ -93,7 +95,7 @@ const WeappTag: React.FC<IWeAppTag> = (props: IWeAppTag) => {
       style={getWxTagStyle(debugMode)}
     >
       <script type='text/wxtag-template'>
-        <button type='button' style={getNaviBtnStyle(childrenRef, debugMode)}>Navi</button>
+        <button type='button' style={btnStyle}>Navi</button>
       </script>
     </wx-open-launch-weapp>
   );
